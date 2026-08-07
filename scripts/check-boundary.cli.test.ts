@@ -24,6 +24,8 @@ interface GuardRun {
   readonly stderr: string;
 }
 
+type SymlinkAttempt = { supported: true; run: GuardRun } | { supported: false; reason: string };
+
 /**
  * Copies the guard into a checkout directory of the given name and runs it there. The name is the
  * variable under test: it becomes part of `process.argv[1]`, which is what the entry-point check
@@ -67,12 +69,22 @@ function runGuardIn(checkoutName: string, tree: FixtureTree): GuardRun {
  * directory exercises this on one machine and silently skips it on the runner — which is the
  * shape of bug this whole file exists to prevent.
  */
-function runGuardThroughSymlinkTo(checkoutName: string, tree: FixtureTree): GuardRun {
+function runGuardThroughSymlinkTo(checkoutName: string, tree: FixtureTree): SymlinkAttempt {
   const checkout = prepareCheckout(checkoutName, tree);
   const linked = join(dirname(checkout), 'linked-checkout');
-  symlinkSync(checkout, linked, 'dir');
 
-  return spawnGuard(linked);
+  try {
+    symlinkSync(checkout, linked, 'dir');
+  } catch (error) {
+    // Windows refuses symlink creation without developer mode. A test that cannot run should say
+    // so rather than go red for a reason unrelated to what it asserts.
+    if ((error as NodeJS.ErrnoException).code === 'EPERM') {
+      return { supported: false, reason: 'symlink creation is not permitted on this platform' };
+    }
+    throw error;
+  }
+
+  return { supported: true, run: spawnGuard(linked) };
 }
 
 afterEach(() => {
@@ -119,19 +131,21 @@ describe('pnpm check:boundary, run as a process', () => {
     expect(violationCount(accented.stderr)).toBe(violationCount(ascii.stderr));
   });
 
-  it('exits 1 when the checkout is reached through a symlink', () => {
-    const run = runGuardThroughSymlinkTo('probe_symlinked', FIXTURE_TREES.cliLeak);
+  it('exits 1 when the checkout is reached through a symlink', (ctx) => {
+    const attempt = runGuardThroughSymlinkTo('probe_symlinked', FIXTURE_TREES.cliLeak);
+    if (!attempt.supported) return ctx.skip(attempt.reason);
 
-    expect(run.status).toBe(1);
-    expect(run.stderr).not.toBe('');
-    expect(run.stderr).toContain('leak.ts');
+    expect(attempt.run.status).toBe(1);
+    expect(attempt.run.stderr).not.toBe('');
+    expect(attempt.run.stderr).toContain('leak.ts');
   });
 
-  it('exits 1 through a symlink whose target path also contains a space', () => {
-    const run = runGuardThroughSymlinkTo('probe space', FIXTURE_TREES.cliLeak);
+  it('exits 1 through a symlink whose target path also contains a space', (ctx) => {
+    const attempt = runGuardThroughSymlinkTo('probe space', FIXTURE_TREES.cliLeak);
+    if (!attempt.supported) return ctx.skip(attempt.reason);
 
-    expect(run.status).toBe(1);
-    expect(run.stderr).toContain('3 violation(s)');
+    expect(attempt.run.status).toBe(1);
+    expect(attempt.run.stderr).toContain('3 violation(s)');
   });
 
   it('exits 0 on a clean tree, including from a path containing a space', () => {
