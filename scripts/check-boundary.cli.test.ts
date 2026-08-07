@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import { FIXTURE_TREES, materialiseFixtureTree } from './__fixtures__/boundary-fixtures';
@@ -29,7 +29,7 @@ interface GuardRun {
  * variable under test: it becomes part of `process.argv[1]`, which is what the entry-point check
  * compares against.
  */
-function runGuardIn(checkoutName: string, tree: FixtureTree): GuardRun {
+function prepareCheckout(checkoutName: string, tree: FixtureTree): string {
   const root = mkdtempSync(join(tmpdir(), 'postforge-cli-'));
   temporaryDirectories.push(root);
 
@@ -38,6 +38,10 @@ function runGuardIn(checkoutName: string, tree: FixtureTree): GuardRun {
   cpSync(guardSource, join(checkout, 'scripts', 'check-boundary.ts'));
   materialiseFixtureTree(tree, checkout);
 
+  return checkout;
+}
+
+function spawnGuard(checkout: string): GuardRun {
   const result = spawnSync(
     process.execPath,
     [
@@ -49,6 +53,26 @@ function runGuardIn(checkoutName: string, tree: FixtureTree): GuardRun {
   );
 
   return { status: result.status, stdout: result.stdout, stderr: result.stderr };
+}
+
+function runGuardIn(checkoutName: string, tree: FixtureTree): GuardRun {
+  return spawnGuard(prepareCheckout(checkoutName, tree));
+}
+
+/**
+ * Reaches the same checkout through a symlink the test creates itself.
+ *
+ * The symlink is deliberate rather than inherited: on macOS `os.tmpdir()` is already a symlink
+ * (`/var` → `/private/var`) and on Linux it is not, so a test relying on the platform's temp
+ * directory exercises this on one machine and silently skips it on the runner — which is the
+ * shape of bug this whole file exists to prevent.
+ */
+function runGuardThroughSymlinkTo(checkoutName: string, tree: FixtureTree): GuardRun {
+  const checkout = prepareCheckout(checkoutName, tree);
+  const linked = join(dirname(checkout), 'linked-checkout');
+  symlinkSync(checkout, linked, 'dir');
+
+  return spawnGuard(linked);
 }
 
 afterEach(() => {
@@ -93,6 +117,21 @@ describe('pnpm check:boundary, run as a process', () => {
     expect(violationCount(ascii.stderr)).toBe(3);
     expect(violationCount(spaced.stderr)).toBe(violationCount(ascii.stderr));
     expect(violationCount(accented.stderr)).toBe(violationCount(ascii.stderr));
+  });
+
+  it('exits 1 when the checkout is reached through a symlink', () => {
+    const run = runGuardThroughSymlinkTo('probe_symlinked', FIXTURE_TREES.cliLeak);
+
+    expect(run.status).toBe(1);
+    expect(run.stderr).not.toBe('');
+    expect(run.stderr).toContain('leak.ts');
+  });
+
+  it('exits 1 through a symlink whose target path also contains a space', () => {
+    const run = runGuardThroughSymlinkTo('probe space', FIXTURE_TREES.cliLeak);
+
+    expect(run.status).toBe(1);
+    expect(run.stderr).toContain('3 violation(s)');
   });
 
   it('exits 0 on a clean tree, including from a path containing a space', () => {
