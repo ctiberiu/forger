@@ -4,6 +4,12 @@
 
 ## Prerequisites
 
+**Supported developer platforms: macOS and Linux.** Decided 7 Aug 2026. CI runs Ubuntu and the
+deploy target is Linux, so those are the two that must work. Windows is not supported and is not
+tested — do not add Windows-only branches to code or tests on reflex. If Windows support is ever
+wanted, it starts with someone actually running the suite there and fixing what breaks, not with
+defensive guards written against documentation.
+
 - Node.js 22 or later and pnpm 10 — confirmed in P0. The pinned version is `packageManager` in
   `package.json`; `corepack enable pnpm` picks it up
 - A Vercel account with the project linked (`vercel link`)
