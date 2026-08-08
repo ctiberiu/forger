@@ -194,6 +194,15 @@ will recur for the render pipeline (engine contract + pack layouts) and connecto
 - Entry-point and path logic is canonicalised before comparison — resolve symlinks, do not
   string-match a URL against a filesystem path. CI temp directories and working copies reached
   through links are both real, both common, and both silent when this is wrong.
+- **A test criterion should name the condition it depends on, not a proxy for it.** "On Linux" was
+  once written here where the real dependency was "a temp root that is not itself a symlink".
+  Platform, environment and machine are usually proxies; say the thing, so the criterion can be
+  satisfied deliberately instead of by luck.
+- **A CI configuration that has only ever been green is itself unverified.** As of P0 no gate in
+  this repository has ever legitimately failed, so "a non-zero exit fails the workflow" is believed
+  from documentation, not observed — the same fail-open shape as everything else in this list, one
+  level up. Do not manufacture a red run to close it. **Do** record the first genuine gate failure
+  as the confirmation it is, rather than treating it only as a problem to fix.
 - CI gates: `build`, `lint`, `test`, and the engine/pack grep guard must all pass.
 
 ## 9. Security and compliance
