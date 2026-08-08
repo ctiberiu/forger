@@ -93,11 +93,14 @@ export type Theme = (typeof themes)[ThemeKey];
 export const font = {
   sans: 'Geist',
   mono: 'Geist Mono',
-  /** Weights present as static TTFs and actually used by the twelve. */
+  /**
+   * Only the weights the renderer actually loads from `assets/fonts/geist/`. A layout asking for
+   * a weight that is not loaded does not fail — Satori silently substitutes the nearest one — so
+   * this list must stay in step with the renderer's font table rather than with what Geist ships.
+   */
   weight: {
     regular: 400,
     medium: 500,
-    semibold: 600,
     bold: 700,
   },
   /** capHeight ÷ unitsPerEm, read from every Geist TTF. Used to derive size from a measurement. */
