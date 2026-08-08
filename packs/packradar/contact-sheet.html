@@ -1,0 +1,302 @@
+<meta charset="utf-8">
+<title>PackRadar tokens — contact sheet</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; padding:48px; background:#08110C; color:#C8F5DC;
+         font-family:Geist,system-ui,sans-serif; }
+  h1 { font-size:28px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h2 { font-size:13px; letter-spacing:0.18em; text-transform:uppercase;
+       color:#2EE66B; margin:56px 0 16px;
+       border-bottom:2px solid #223029; padding-bottom:10px; }
+  p.lede { color:#7C8C84; margin:0 0 8px; max-width:70ch; line-height:1.5; }
+  code { font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; color:#2EE66B; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+  .swatch { display:flex; gap:12px; align-items:center; background:#0B1510;
+            border:2px solid #223029; border-radius:6px; padding:10px; }
+  .chip { width:52px; height:52px; border-radius:4px; flex:none;
+          box-shadow:inset 0 0 0 1px rgba(255,255,255,.10); }
+  .meta { display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .meta b { font-family:'Geist Mono',monospace; font-size:12px; font-weight:500; }
+  .meta span { font-size:11px; color:#7C8C84; line-height:1.35; }
+  table { border-collapse:collapse; width:100%; }
+  td, th { border-bottom:2px solid #223029; padding:12px 10px; text-align:left;
+           vertical-align:middle; }
+  th { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#7C8C84; }
+  .num { font-family:'Geist Mono',monospace; font-size:12px; color:#7C8C84; white-space:nowrap; }
+  .bars { display:flex; flex-direction:column; gap:8px; }
+  .bar { display:flex; align-items:center; gap:12px; }
+  .bar i { display:block; height:14px; background:#2EE66B; border-radius:2px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px; }
+  .card figcaption { font-size:11px; color:#7C8C84; margin-top:8px; line-height:1.4; }
+  .card img { width:100%; display:block; border:2px solid #223029; border-radius:4px; }
+  .card code { display:block; margin-top:6px; }
+  .demo { border:2px solid #223029; border-radius:6px; overflow:hidden; max-width:420px; }
+  .demo .status { height:46px; display:flex; align-items:center;
+        justify-content:space-between; padding:0 24px;
+        border-bottom:2px solid #223029;
+        font-family:'Geist Mono',monospace; font-size:11px; letter-spacing:0.12em;
+        color:#2EE66B; }
+  .demo .body { padding:24px 24px; min-height:120px; }
+  .demo .cta { height:55px; display:flex; align-items:center;
+        justify-content:center; background:#0D1F12;
+        font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:0.12em;
+        color:#2EE66B; }
+  .theme { padding:20px; border-radius:6px; }
+</style>
+
+<h1>PackRadar — token contact sheet</h1>
+<p class="lede">Generated from <code>packs/packradar/tokens.ts</code>. Every value was measured from
+the twelve cards below rather than copied from the brief. If a swatch stops matching its card,
+the token drifted.</p>
+
+<h2>Colour</h2>
+<div class="grid">
+<div class="swatch">
+    <div class="chip" style="background:#060B07"></div>
+    <div class="meta"><code>colour.ground</code><b>#060B07</b><span>measured #060B07 — brief says #0A0F14, see tokens.ts</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#0D1F12"></div>
+    <div class="meta"><code>colour.groundRaised</code><b>#0D1F12</b><span>CTA band on 02, badge on 10</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#080F08"></div>
+    <div class="meta"><code>colour.groundPanel</code><b>#080F08</b><span>photo frame fill; ground of 11</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#0D2414"></div>
+    <div class="meta"><code>colour.groundStory</code><b>#0D2414</b><span>09 story ground</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#061109"></div>
+    <div class="meta"><code>colour.groundStoryPanel</code><b>#061109</b><span>09 option box</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#2EE66B"></div>
+    <div class="meta"><code>colour.signal</code><b>#2EE66B</b><span>accent — status, CTA, live dot</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#C8F5DC"></div>
+    <div class="meta"><code>colour.mint</code><b>#C8F5DC</b><span>primary reading colour</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#7C8C84"></div>
+    <div class="meta"><code>colour.muted</code><b>#7C8C84</b><span>secondary; plateaus span #68766F–#96AA9F</span></div>
+  </div>
+<div class="swatch">
+    <div class="chip" style="background:#223029"></div>
+    <div class="meta"><code>colour.rule</code><b>#223029</b><span>hairlines and frame strokes</span></div>
+  </div>
+</div>
+
+<h2>Themes — the inversion is a swap, not a branch</h2>
+<div class="grid">
+<div class="theme" style="background:#060B07;color:#C8F5DC;
+      border:2px solid #223029">
+      <div style="font-size:22px;font-weight:700">dark</div>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#7C8C84;margin-top:6px">
+        ground #060B07 · ink #C8F5DC</div>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#2EE66B;
+        letter-spacing:0.12em;margin-top:10px">● SIGNAL DETECTED</div>
+    </div>
+<div class="theme" style="background:#2EE66B;color:#041209;
+      border:2px solid #0A2B14">
+      <div style="font-size:22px;font-weight:700">inverted</div>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#0A2B14;margin-top:6px">
+        ground #2EE66B · ink #041209</div>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#041209;
+        letter-spacing:0.12em;margin-top:10px">● SIGNAL DETECTED</div>
+    </div>
+</div>
+
+<h2>Type scale — size, implied cap-height, both faces</h2>
+<table>
+  <tr><th>token</th><th>size</th><th>cap</th><th>Geist Sans 700</th><th>Geist Mono 400</th></tr>
+  <tr>
+    <td><code>type.micro</code></td>
+    <td class="num">20px</td>
+    <td class="num">14px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:20px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:20px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.small</code></td>
+    <td class="num">22px</td>
+    <td class="num">16px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:22px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:22px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.label</code></td>
+    <td class="num">26px</td>
+    <td class="num">18px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:26px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:26px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.title</code></td>
+    <td class="num">38px</td>
+    <td class="num">27px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:38px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:38px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.headline</code></td>
+    <td class="num">52px</td>
+    <td class="num">37px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:52px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:52px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.display</code></td>
+    <td class="num">60px</td>
+    <td class="num">43px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:60px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:60px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.hero</code></td>
+    <td class="num">88px</td>
+    <td class="num">62px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:88px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:88px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+<tr>
+    <td><code>type.colossal</code></td>
+    <td class="num">196px</td>
+    <td class="num">139px cap</td>
+    <td><div style="font-family:Geist,sans-serif;font-weight:700;font-size:196px;line-height:1.05;color:#C8F5DC">899 lei</div></td>
+    <td><div style="font-family:'Geist Mono',monospace;font-size:196px;line-height:1.05;color:#2EE66B">899</div></td>
+  </tr>
+</table>
+
+<h2>Leading and tracking</h2>
+<table>
+  <tr><th>token</th><th>value</th><th>specimen</th></tr>
+  <tr><td><code>leading.tight</code></td><td class="num">1.05</td>
+      <td style="font-size:20px;line-height:1.05;max-width:52ch">Last restock sold out in 41 min.
+      The next one will not wait for you either.</td></tr>
+<tr><td><code>leading.display</code></td><td class="num">1.15</td>
+      <td style="font-size:20px;line-height:1.15;max-width:52ch">Last restock sold out in 41 min.
+      The next one will not wait for you either.</td></tr>
+<tr><td><code>leading.body</code></td><td class="num">1.4</td>
+      <td style="font-size:20px;line-height:1.4;max-width:52ch">Last restock sold out in 41 min.
+      The next one will not wait for you either.</td></tr>
+  <tr><td><code>tracking.none</code></td><td class="num">0em</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:16px;letter-spacing:0em;
+      color:#2EE66B">SIGNAL DETECTED</td></tr>
+<tr><td><code>tracking.label</code></td><td class="num">0.12em</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:16px;letter-spacing:0.12em;
+      color:#2EE66B">SIGNAL DETECTED</td></tr>
+<tr><td><code>tracking.wide</code></td><td class="num">0.18em</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:16px;letter-spacing:0.18em;
+      color:#2EE66B">SIGNAL DETECTED</td></tr>
+</table>
+
+<h2>Spacing</h2>
+<div class="bars">
+<div class="bar"><code style="width:80px">space.x1</code>
+       <span class="num" style="width:52px">4px</span><i style="width:4px"></i></div>
+<div class="bar"><code style="width:80px">space.x2</code>
+       <span class="num" style="width:52px">8px</span><i style="width:8px"></i></div>
+<div class="bar"><code style="width:80px">space.x3</code>
+       <span class="num" style="width:52px">12px</span><i style="width:12px"></i></div>
+<div class="bar"><code style="width:80px">space.x4</code>
+       <span class="num" style="width:52px">16px</span><i style="width:16px"></i></div>
+<div class="bar"><code style="width:80px">space.x6</code>
+       <span class="num" style="width:52px">24px</span><i style="width:24px"></i></div>
+<div class="bar"><code style="width:80px">space.x8</code>
+       <span class="num" style="width:52px">32px</span><i style="width:32px"></i></div>
+<div class="bar"><code style="width:80px">space.x10</code>
+       <span class="num" style="width:52px">40px</span><i style="width:40px"></i></div>
+<div class="bar"><code style="width:80px">space.x12</code>
+       <span class="num" style="width:52px">48px</span><i style="width:48px"></i></div>
+<div class="bar"><code style="width:80px">space.x15</code>
+       <span class="num" style="width:52px">60px</span><i style="width:60px"></i></div>
+<div class="bar"><code style="width:80px">space.x18</code>
+       <span class="num" style="width:52px">72px</span><i style="width:72px"></i></div>
+<div class="bar"><code style="width:80px">space.x24</code>
+       <span class="num" style="width:52px">96px</span><i style="width:96px"></i></div>
+</div>
+
+<h2>Rules, frames, bands and the status dot</h2>
+<table>
+  <tr><th>token</th><th>value</th><th>note</th></tr>
+  <tr><td><code>rule.hairline</code></td><td class="num">2px</td>
+      <td>rows 92–93 under the status bar; 336–337 between rows in 04</td></tr>
+  <tr><td><code>frame.stroke</code></td><td class="num">2px</td>
+      <td>photo frame and card border</td></tr>
+  <tr><td><code>frame.inset</code></td><td class="num">2px</td>
+      <td>card border inset from the canvas edge</td></tr>
+  <tr><td><code>band.statusHeight</code></td><td class="num">92px</td>
+      <td>ground to the hairline</td></tr>
+  <tr><td><code>band.ctaHeight</code></td><td class="num">110px</td>
+      <td>y=970 to the bottom edge</td></tr>
+  <tr><td><code>band.marginTight</code></td><td class="num">48px</td>
+      <td>02-drop, 06-story-live</td></tr>
+  <tr><td><code>band.margin</code></td><td class="num">72px</td>
+      <td>04-intel, 08-sellout-recap, 12-weekly-report</td></tr>
+  <tr><td><code>dot.size</code> / <code>dot.gap</code></td>
+      <td class="num">10px / 14px</td>
+      <td>filled when live, hollow when closed — a fill change, never a colour change</td></tr>
+</table>
+
+<p class="lede" style="margin-top:20px">Bands assembled at half scale, so the proportions of
+<code>02-drop</code> can be checked against the card below:</p>
+<div class="demo" style="background:#060B07">
+  <div class="status"><span>● SIGNAL DETECTED</span>
+    <span style="color:#7C8C84">SWEEP 09:41 · RO</span></div>
+  <div class="body">
+    <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#7C8C84">CARDMARKET.RO · JUST NOW</div>
+    <div style="font-size:30px;font-weight:700;line-height:1.15;margin-top:12px">Prismatic Evolutions Booster Box</div>
+  </div>
+  <div class="cta">SEE LIVE STOCK → PACKRADAR.APP</div>
+</div>
+
+<h2>Formats</h2>
+<table>
+  <tr><th>format</th><th>dimensions</th></tr>
+  <tr><td><code>feed_1x1</code></td><td class="num">1080 × 1080</td></tr>
+<tr><td><code>feed_4x5</code></td><td class="num">1080 × 1350</td></tr>
+<tr><td><code>story_9x16</code></td><td class="num">1080 × 1920</td></tr>
+</table>
+
+<h2>The twelve, as measured</h2>
+<div class="cards">
+<figure class="card" style="margin:0">
+    <img src="examples/01-launch.jpg" alt="01-launch" loading="lazy">
+    <code>01-launch</code><figcaption>dark ground, radar glow</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/02-drop.jpg" alt="02-drop" loading="lazy">
+    <code>02-drop</code><figcaption>the P1 target — status bar, photo frame, CTA band</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/03-carousel.jpg" alt="03-carousel" loading="lazy">
+    <code>03-carousel</code><figcaption>inverted</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/04-intel.jpg" alt="04-intel" loading="lazy">
+    <code>04-intel</code><figcaption>row rules, mono price column</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/05-meme.jpg" alt="05-meme" loading="lazy">
+    <code>05-meme</code><figcaption>backlog — screenshot card</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/06-story-live.jpg" alt="06-story-live" loading="lazy">
+    <code>06-story-live</code><figcaption>9:16, card panels</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/07-reel-cover.jpg" alt="07-reel-cover" loading="lazy">
+    <code>07-reel-cover</code><figcaption>backlog — 9:16 glow</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/08-sellout-recap.jpg" alt="08-sellout-recap" loading="lazy">
+    <code>08-sellout-recap</code><figcaption>colossal stat, no imagery</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/09-story-poll.jpg" alt="09-story-poll" loading="lazy">
+    <code>09-story-poll</code><figcaption>story ground, option boxes</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/10-price-drop.jpg" alt="10-price-drop" loading="lazy">
+    <code>10-price-drop</code><figcaption>no imagery, raised badge</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/11-ugc.jpg" alt="11-ugc" loading="lazy">
+    <code>11-ugc</code><figcaption>panel ground, photo frame</figcaption></figure>
+<figure class="card" style="margin:0">
+    <img src="examples/12-weekly-report.jpg" alt="12-weekly-report" loading="lazy">
+    <code>12-weekly-report</code><figcaption>inverted, stat rows</figcaption></figure>
+</div>
